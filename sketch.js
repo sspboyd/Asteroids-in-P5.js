@@ -1,8 +1,15 @@
 var s1;
+var asteroids = [];
+
 
 function setup() {
-    createCanvas(200, 200);
+    createCanvas(1400, 800);
     s1 = new Ship();
+
+    for (var i = 0; i < 10; i++) {
+        asteroids.push(new Asteroid());
+    }
+
 }
 
 function draw() {
@@ -10,6 +17,11 @@ function draw() {
     s1.render();
     s1.turn();
     s1.update();
+
+    for (var i = 0; i < asteroids.length; i++) {
+        asteroids[i].update();
+    }
+
 }
 
 function keyReleased() {

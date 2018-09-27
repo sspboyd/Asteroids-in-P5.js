@@ -1,9 +1,9 @@
 function Ship() {
     this.pos = createVector(width / 2, height / 2);
-    this.r = 10;
+    this.r = 30;
     this.heading = 0; // units are radians
     this.rotation = 0; // units are radians
-    this.vel = createVector(1, 0);
+    this.vel = createVector(10, 0);
     this.isBoosting = false;
 
     this.boosting = function(b) {
@@ -28,14 +28,17 @@ function Ship() {
     }
 
     this.render = function() {
+        push();
         stroke(255);
-        noFill();
+        // noFill();
+        fill(200+random(55),random(100)+50,100+random(55));
 
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
 
         var tr = this.r; // shortcut
         triangle(0, -tr, tr, tr, -tr, tr);
+        pop();
     };
 
     this.edges = function() {
