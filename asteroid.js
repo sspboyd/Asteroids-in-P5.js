@@ -4,18 +4,28 @@ function Asteroid() {
     // this.vel = createVector(random(-1,1),random(-1,1));
     this.vel = p5.Vector.random2D();
     this.heading = 0;
-    this.rotation = 0;
+    this.rotation = random(-QUARTER_PI/47, QUARTER_PI/47);
 
     this.minR = 18;
-    this.maxR = this.minR + floor(random(47));
+    this.maxR = this.minR + floor(random(29));
     this.total = floor(random(7, 18));
     this.offset = [];
     for (var i = 0; i < this.total; i++) {
         this.offset[i] = this.minR + (random() * (this.maxR));
     }
 
+
+this.rotate = function(){
+    this.heading +=this.rotation;
+}
+
+this.setRotation = function(angle){
+    this.rotation = angle;
+}
     this.update = function() {
         this.pos.add(this.vel);
+        // this.setRotation();
+        this.rotate();
         this.edges();
         this.render();
     }
@@ -35,10 +45,13 @@ function Asteroid() {
         }
     }
 
+
+
     this.render = function() {
         push();
         translate(this.pos.x, this.pos.y);
-        noFill();
+        rotate(this.heading);
+        fill(255, 29);
         stroke(255);
         // ellipse(0, 0, this.r*2);
         beginShape();
@@ -53,4 +66,12 @@ function Asteroid() {
         endShape(CLOSE);
         pop();
     }
+
+
+    this.breakup = function() {
+        var newA = [];
+
+    }
+
+
 }

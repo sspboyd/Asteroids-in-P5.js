@@ -1,6 +1,6 @@
 function Ship() {
     this.pos = createVector(width / 2, height / 2);
-    this.r = 30;
+    this.r = 18;
     this.heading = 0; // units are radians
     this.rotation = 0; // units are radians
     this.vel = createVector(10, 0);
@@ -31,13 +31,21 @@ function Ship() {
         push();
         stroke(255);
         // noFill();
-        fill(200+random(55),random(100)+50,100+random(55));
+        fill(200 + random(55), random(100) + 50, 100 + random(55));
 
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
 
         var tr = this.r; // shortcut
         triangle(0, -tr, tr, tr, -tr, tr);
+        fill(199, 123, 123, 11);
+        // triangle(0,-tr,tr*-5, tr*-5,-tr*-5, tr*-5);
+        arc(0, -tr, width * 2, width * 2, PI + HALF_PI - (QUARTER_PI / 4), PI + HALF_PI + (QUARTER_PI / 4));
+        strokeWeight(11);
+        stroke(199,123,199,7);
+        noFill();
+        // fill(199, 123, 123, 7);
+        ellipse(0,-tr*3,this.r*7,this.r*11);
         pop();
     };
 
