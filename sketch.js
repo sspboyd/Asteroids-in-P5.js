@@ -1,6 +1,7 @@
 var s1;
 var asteroids = [];
 var lasers = [];
+const PHI = 1.6180339;
 
 
 function setup() {
@@ -23,12 +24,19 @@ function draw() {
         asteroids[i].update();
     }
 
-    for (var i = 0; i < lasers.length; i++) {
+    for (var i = lasers.length-1; i >= 0; i--) {
         lasers[i].update();
-        for (var j = 0; j < asteroids.length; j++) {
+        if(lasers[i].isOutOfBounds()){
+            lasers.splice(i,1);
+            break;
+        }
+        for (var j = asteroids.length-1; j >= 0; j--) {
             if (lasers[i].hits(asteroids[j])) {
-                asteroids[j].breakup();
-
+                var newAsteroids = asteroids[j].breakup();
+                asteroids.splice(j, 1);
+                lasers.splice(i, 1);
+                asteroids = asteroids.concat(newAsteroids);
+                break;
             }
         }
     }

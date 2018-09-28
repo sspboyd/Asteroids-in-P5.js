@@ -21,10 +21,20 @@ function Laser(ship) {
     }
 
 
-
     this.hits = function(asteroid) {
         var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y)
         if (d < asteroid.maxR) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    this.isOutOfBounds = function() {
+        var tp = this.pos;
+        if (0 > tp.x || tp.x > width) {
+            return true;
+        } else if (0 > tp.y || tp.y > height) {
             return true;
         } else {
             return false;

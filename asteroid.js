@@ -1,13 +1,23 @@
 // Asteroid
-function Asteroid() {
-    this.pos = createVector(random(width), random(height));
+function Asteroid(parentAsteroid) {
+    if (parentAsteroid) {
+        this.pos = parentAsteroid.pos.copy();
+        this.parentAsteroid = parentAsteroid;
+    } else {
+        this.pos = createVector(random(width), random(height));
+    }
     // this.vel = createVector(random(-1,1),random(-1,1));
     this.vel = p5.Vector.random2D();
     this.heading = 0;
-    this.rotation = random(-QUARTER_PI/47, QUARTER_PI/47);
+    this.rotation = random(-QUARTER_PI / 47, QUARTER_PI / 47);
 
-    this.minR = 18;
-    this.maxR = this.minR + floor(random(29));
+    if (parentAsteroid) {
+        this.minR = parentAsteroid.minR * (1 / PHI);
+        this.maxR = parentAsteroid.maxR * (1 / PHI);
+    } else {
+        this.minR = 18;
+        this.maxR = this.minR + floor(random(29));
+    }
     this.total = floor(random(7, 18));
     this.offset = [];
     for (var i = 0; i < this.total; i++) {
@@ -15,13 +25,13 @@ function Asteroid() {
     }
 
 
-this.rotate = function(){
-    this.heading +=this.rotation;
-}
+    this.rotate = function() {
+        this.heading += this.rotation;
+    }
 
-this.setRotation = function(angle){
-    this.rotation = angle;
-}
+    this.setRotation = function(angle) {
+        this.rotation = angle;
+    }
     this.update = function() {
         this.pos.add(this.vel);
         // this.setRotation();
@@ -69,8 +79,12 @@ this.setRotation = function(angle){
 
 
     this.breakup = function() {
-        var newA = [];
-
+            var newA = [];
+        if (this.minR > 7) {
+            newA[0] = new Asteroid(this);
+            newA[1] = new Asteroid(this);
+        }
+            return newA;
     }
 
 
