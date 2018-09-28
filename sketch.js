@@ -22,6 +22,9 @@ function draw() {
 
     for (var i = 0; i < asteroids.length; i++) {
         asteroids[i].update();
+        if(s1.isCollision(asteroids[i])){
+            console.log("BOOOOM!!!");
+        }
     }
 
     for (var i = lasers.length-1; i >= 0; i--) {

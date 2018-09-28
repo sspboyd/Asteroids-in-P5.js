@@ -20,6 +20,11 @@ function Ship() {
         this.edges();
     }
 
+    this.isCollision = function(asteroid) {
+        if (this.pos.dist(asteroid.pos) < (this.r+asteroid.minR)) {
+            return true; // i know its unnecessary but its more readable
+        }
+    }
 
     this.boost = function() {
         var force = p5.Vector.fromAngle(this.heading);
@@ -42,10 +47,10 @@ function Ship() {
         // triangle(0,-tr,tr*-5, tr*-5,-tr*-5, tr*-5);
         arc(0, -tr, width * 2, width * 2, PI + HALF_PI - (QUARTER_PI / 4), PI + HALF_PI + (QUARTER_PI / 4));
         strokeWeight(11);
-        stroke(199,123,199,7);
+        stroke(199, 123, 199, 7);
         noFill();
         // fill(199, 123, 123, 7);
-        ellipse(0,-tr*3,this.r*7,this.r*11);
+        ellipse(0, -tr * 3, this.r * 7, this.r * 11);
         pop();
     };
 
