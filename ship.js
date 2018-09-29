@@ -5,6 +5,7 @@ function Ship() {
     this.rotation = 0; // units are radians
     this.vel = createVector(10, 0);
     this.isBoosting = false;
+    this.isHit = false;
 
     this.boosting = function(b) {
         this.isBoosting = b;
@@ -12,6 +13,7 @@ function Ship() {
 
 
     this.update = function() {
+        //this.turn();
         if (this.isBoosting) {
             this.boost();
         }
@@ -21,8 +23,10 @@ function Ship() {
     }
 
     this.isCollision = function(asteroid) {
-        if (this.pos.dist(asteroid.pos) < (this.r+asteroid.minR)) {
+        if (this.pos.dist(asteroid.pos) < (this.r + asteroid.minR)) {
             return true; // i know its unnecessary but its more readable
+        } else {
+            return false;
         }
     }
 
@@ -36,8 +40,11 @@ function Ship() {
         push();
         stroke(255);
         // noFill();
-        fill(200 + random(55), random(100) + 50, 100 + random(55));
-
+        if (this.isHit) {
+            fill(255, 0, 0)
+        } else {
+            fill(200 + random(55), random(100) + 50, 100 + random(55));
+        }
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
 

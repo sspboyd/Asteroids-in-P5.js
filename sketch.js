@@ -17,18 +17,39 @@ function setup() {
 
 function draw() {
     background(47);
-    s1.render();
     s1.turn();
     s1.update();
     scoreboard.update();
+    s1.render();
+    s1.isHit = false;
 
-    for (var i = 0; i < asteroids.length; i++) {
-        asteroids[i].update();
-        if (s1.isCollision(asteroids[i])) {
+
+    asteroids.forEach(function(ast) {
+        ast.update();
+        if (s1.isCollision(ast)) {
+            s1.isHit = true;
             // console.log("BOOOOM!!!");
             scoreboard.incrmt("collisionCount");
         }
-    }
+    });
+
+    // for (var i in asteroids) {
+    //     asteroids[i].update();
+    //     if (s1.isCollision(asteroids[i])) {
+    //         s1.isHit = true;
+    //         // console.log("BOOOOM!!!");
+    //         scoreboard.incrmt("collisionCount");
+    //     }
+    // }
+
+    // for (var i = 0; i < asteroids.length; i++) {
+    //     asteroids[i].update();
+    //     if (s1.isCollision(asteroids[i])) {
+    //         s1.isHit = true;
+    //         // console.log("BOOOOM!!!");
+    //         scoreboard.incrmt("collisionCount");
+    //     }
+    // }
 
     for (var i = lasers.length - 1; i >= 0; i--) {
         lasers[i].update();
@@ -61,7 +82,7 @@ let scoreboard = {
     update: function() {
         this.score = this.calcScore();
         this.display();
-        if(this.score > this.maxScore){
+        if (this.score > this.maxScore) {
             this.maxScore = this.score;
         }
     },
@@ -79,21 +100,16 @@ let scoreboard = {
         text("Collisions = " + this.collisionCount, 10, height - 11);
         text("Shots = " + this.laserCount, 150, height - 11);
         text("Hits = " + this.hitCount, 250, height - 11);
-        fill(123,199,255);
-        text("Score = " + this.score, width-150, height - 11);
-        text("Max Score = " + this.maxScore, width-300, height - 11);
+        fill(123, 199, 255);
+        text("Score = " + this.score, width - 150, height - 11);
+        text("Max Score = " + this.maxScore, width - 300, height - 11);
     },
     calcScore: function() {
         let hitScore = this.hitCount * 50;
-        let laserScore = -this.laserCount*2;
+        let laserScore = -this.laserCount * 2;
         let collisionScore = this.collisionCount * -4;
         return hitScore + laserScore + collisionScore;
-
-
     }
-
-
-
 }
 
 function keyReleased() {
