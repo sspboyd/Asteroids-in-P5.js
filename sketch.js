@@ -4,7 +4,6 @@ var lasers = [];
 const PHI = 1.6180339;
 
 
-
 function setup() {
     createCanvas(700, 600);
     s1 = new Ship();
@@ -28,7 +27,6 @@ function draw() {
         ast.update();
         if (s1.isCollision(ast)) {
             s1.isHit = true;
-            // console.log("BOOOOM!!!");
             scoreboard.incrmt("collisionCount");
         }
     });
@@ -37,7 +35,6 @@ function draw() {
     //     asteroids[i].update();
     //     if (s1.isCollision(asteroids[i])) {
     //         s1.isHit = true;
-    //         // console.log("BOOOOM!!!");
     //         scoreboard.incrmt("collisionCount");
     //     }
     // }
@@ -46,7 +43,6 @@ function draw() {
     //     asteroids[i].update();
     //     if (s1.isCollision(asteroids[i])) {
     //         s1.isHit = true;
-    //         // console.log("BOOOOM!!!");
     //         scoreboard.incrmt("collisionCount");
     //     }
     // }

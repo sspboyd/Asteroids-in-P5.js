@@ -20,10 +20,10 @@ function Asteroid(parentAsteroid) {
     }
     this.total = floor(random(7, 18));
     this.offset = [];
+
     for (var i = 0; i < this.total; i++) {
         this.offset[i] = this.minR + (random() * (this.maxR));
     }
-
 
     this.rotate = function() {
         this.heading += this.rotation;
@@ -56,7 +56,6 @@ function Asteroid(parentAsteroid) {
     }
 
 
-
     this.render = function() {
         push();
         translate(this.pos.x, this.pos.y);
@@ -65,27 +64,32 @@ function Asteroid(parentAsteroid) {
         stroke(255);
         // ellipse(0, 0, this.r*2);
         beginShape();
-        for (var i = 0; i < this.total; i++) {
-            var angle = map(i, 0, this.total, 0, TWO_PI);
-            // var x = this.r * cos(angle);
-            // var y = this.r * sin(angle);
-            var x = this.offset[i] * cos(angle);
-            var y = this.offset[i] * sin(angle);
+
+        this.offset.forEach(function(ofst, i, arr) {
+            var angle = map(i, 0, arr.length, 0, TWO_PI);
+            var x = ofst * cos(angle);
+            var y = ofst * sin(angle);
             vertex(x, y);
-        }
+
+        });
+        // for (var i = 0; i < this.total; i++) {
+        //     var angle = map(i, 0, this.total, 0, TWO_PI);
+        //     // var x = this.r * cos(angle);
+        //     // var y = this.r * sin(angle);
+        //     var x = this.offset[i] * cos(angle);
+        //     var y = this.offset[i] * sin(angle);
+        //     vertex(x, y);
+        // }
         endShape(CLOSE);
         pop();
     }
 
-
     this.breakup = function() {
-            var newA = [];
+        var newA = [];
         if (this.minR > 7) {
             newA[0] = new Asteroid(this);
             newA[1] = new Asteroid(this);
         }
-            return newA;
+        return newA;
     }
-
-
 }

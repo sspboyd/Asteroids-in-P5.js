@@ -11,7 +11,6 @@ function Ship() {
         this.isBoosting = b;
     }
 
-
     this.update = function() {
         //this.turn();
         if (this.isBoosting) {
@@ -23,7 +22,7 @@ function Ship() {
     }
 
     this.isCollision = function(asteroid) {
-        if (this.pos.dist(asteroid.pos) < (this.r + asteroid.minR)) {
+        if (this.pos.dist(asteroid.pos) < ((this.r*2) + asteroid.minR)) {
             return true; // i know its unnecessary but its more readable
         } else {
             return false;
