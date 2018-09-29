@@ -45,7 +45,7 @@ function Ship() {
         triangle(0, -tr, tr, tr, -tr, tr);
         fill(199, 123, 123, 11);
         // triangle(0,-tr,tr*-5, tr*-5,-tr*-5, tr*-5);
-        arc(0, -tr, width * 2, width * 2, PI + HALF_PI - (QUARTER_PI / 4), PI + HALF_PI + (QUARTER_PI / 4));
+        arc(0, -tr, width * PHI, width * PHI, PI + HALF_PI - (QUARTER_PI / 4), PI + HALF_PI + (QUARTER_PI / 4));
         strokeWeight(11);
         stroke(199, 123, 199, 7);
         noFill();
