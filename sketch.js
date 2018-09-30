@@ -1,10 +1,11 @@
     var s1;
-    var asteroids = [];
+    var asteroids;
     var lasers = [];
     const PHI = 1.6180339;
 
     let gameState = {
         highScore: 0,
+        numAsteroids: 11,
         // pregame: true, //ready for new game to begin
         // activeGame: false, //
         // postGame: false,
@@ -14,7 +15,8 @@
             this.postgame = false;
             scoreboard.initScore();
             s1 = new Ship();
-            for (var i = 0; i < 18; i++) {
+            asteroids = [];
+            for (var i = 0; i < this.numAsteroids; i++) {
                 asteroids.push(new Asteroid());
             }
         }
@@ -37,12 +39,13 @@
 
             textSize(72);
             fill(255, 199);
-            text("Asteroids", width / pow(PHI, 4), height / PHI);
+            text("asteroids", width / pow(PHI, 4), height / PHI);
             textSize(24);
             fill(123, 199);
             text("left, right and up arrows to move, Spacebar to shoot\nyou can't die, just try to get points\npress 'enter' to begin.", width / pow(PHI, 4), height / PHI + 72);
         } else if (gameState.activeGame) {
             if (asteroids.length < 1) {
+                gameState.pregame = false;
                 gameState.activeGame = false;
                 gameState.postGame = true;
             }
@@ -80,10 +83,10 @@
             }
         } else if (gameState.postGame) {
             fill(255, 123, 199, 76);
-            textSize(72);
-            text("Game Over", width / pow(PHI, 4), height / PHI);
+            textSize(48);
+            text("game over...", width / pow(PHI, 4), height / pow(PHI, 2));
             textSize(24);
-            text("press 'enter' to restart the game", width / pow(PHI, 4), height / PHI + 72);
+            text("press 'enter' to restart the game", width / pow(PHI, 4), height / pow(PHI, PHI));
             scoreboard.update();
 
         }
@@ -110,6 +113,13 @@
             }
         }
 
+        if (key == 'R') {
+            gameState.pregame = false;
+            gameState.activeGame = false;
+            gameState.postGame = true;
+        }
+
+
         if (gameState.activeGame) {
             if (key == ' ') { // only for one player. will need another keypressed key for second player
                 lasers.push(new Laser(s1));
@@ -117,9 +127,9 @@
             }
 
             if (keyCode == RIGHT_ARROW) {
-                s1.setRotation(0.11);
+                s1.setRotation(0.09);
             } else if (keyCode == LEFT_ARROW) {
-                s1.setRotation(-0.11);
+                s1.setRotation(-0.09);
 
             } else if (keyCode == UP_ARROW) {
                 s1.boosting(true);
