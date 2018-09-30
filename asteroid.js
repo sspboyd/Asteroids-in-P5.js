@@ -15,8 +15,8 @@ function Asteroid(parentAsteroid) {
         this.minR = parentAsteroid.minR * (1 / PHI);
         this.maxR = parentAsteroid.maxR * (1 / PHI);
     } else {
-        this.minR = 18;
-        this.maxR = this.minR + floor(random(29));
+        this.minR = 29;
+        this.maxR = this.minR + floor(random(47));
     }
     this.total = floor(random(7, 11));
     this.offset = [];
@@ -60,9 +60,13 @@ function Asteroid(parentAsteroid) {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.heading);
-        fill(255, 29);
+        noFill();
         stroke(255);
+        // ellipse(0,0,this.minR*2, this.minR*2);
+        // ellipse(0,0,this.maxR*2, this.maxR*2);
+        fill(255, 29);
         // ellipse(0, 0, this.r*2);
+
         beginShape();
 
         this.offset.forEach(function(ofst, i, arr) {
