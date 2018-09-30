@@ -13,8 +13,8 @@ function Laser(ship) {
 
     this.render = function() {
         push();
-        stroke(255);
-        strokeWeight(3);
+        stroke(200 + random(55), random(100) + 50, 100 + random(55));
+        strokeWeight(7);
         translate(this.pos.x, this.pos.y);
         point(0, 0);
         pop();
