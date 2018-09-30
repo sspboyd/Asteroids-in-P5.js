@@ -18,7 +18,7 @@ function Asteroid(parentAsteroid) {
         this.minR = 18;
         this.maxR = this.minR + floor(random(29));
     }
-    this.total = floor(random(7, 18));
+    this.total = floor(random(7, 11));
     this.offset = [];
 
     for (var i = 0; i < this.total; i++) {
@@ -86,7 +86,7 @@ function Asteroid(parentAsteroid) {
 
     this.breakup = function() {
         var newA = [];
-        if (this.minR > 7) {
+        if (this.minR > 11) {
             newA[0] = new Asteroid(this);
             newA[1] = new Asteroid(this);
         }
