@@ -16,7 +16,11 @@
 
         update: function() {
             this.score = this.calcScore();
-            this.display();
+            if (gameState.postGame) {
+                this.postGameDisplay();
+            } else {
+                this.display();
+            }
             if (this.score > this.maxScore) {
                 this.maxScore = this.score;
             }
@@ -31,20 +35,32 @@
 
         display: function() {
             push(); // for style state
-            fill(76, 199, 255,123);
+            fill(76, 199, 255, 123);
             textSize(18);
-            text("Collisions = " + this.collisionCount, 10, height - 11);
-            text("Shots = " + this.laserCount, 150, height - 11);
-            text("Hits = " + this.hitCount, 250, height - 11);
-            fill(76, 199, 199,199);
-            text("Score = " + this.score, width - 150, height - 11);
-            text("Max Score = " + this.maxScore, width - 300, height - 11);
+            text("collisions = " + this.collisionCount, 10, height - 11);
+            text("shots = " + this.laserCount, 150, height - 11);
+            text("hits = " + this.hitCount, 250, height - 11);
+            fill(76, 199, 199, 199);
+            text("score = " + this.score, width - 150, height - 11);
+            text("max score = " + this.maxScore, width - 300, height - 11);
+            pop();
         },
-
+        postGameDisplay: function() {
+            push(); // for style state
+            fill(76, 199, 255, 123);
+            textSize(18);
+            text("collisions = " + this.collisionCount, width / pow(PHI, 4), height / pow(PHI, 1));
+            text("shots = " + this.laserCount, width / pow(PHI, 4), height / pow(PHI, 1)+18);
+            text("hits = " + this.hitCount, width / pow(PHI, 4), height / pow(PHI, 1)+36);
+            fill(76, 199, 199, 199);
+            text("score = " + this.score, width / pow(PHI, 1), height / pow(PHI, 1));
+            text("max score = " + this.maxScore, width / pow(PHI, 1), height / pow(PHI, 1)+18);
+            pop();
+        },
         calcScore: function() {
-            let hitScore = this.hitCount * 50;
-            let laserScore = -this.laserCount * 2;
-            let collisionScore = this.collisionCount * -4;
+            let hitScore = this.hitCount * 76;
+            let laserScore = -this.laserCount * 3;
+            let collisionScore = this.collisionCount * -7;
             return hitScore + laserScore + collisionScore;
         }
     }
